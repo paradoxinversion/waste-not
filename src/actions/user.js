@@ -1,34 +1,44 @@
 const User = require("../db/schema/user")
 const bcrypt = require("bcryptjs")
+
+/**
+ * Create a new user
+ * @param {string} username 
+ * @param {string} password 
+ * @returns {Object} The resulting user's entry in the DB
+ */
 const createUser = async (username, password) => {
     // Check the db for an existing user
-    const existingUser = await User.find({username});
+    const existingUser = await User.findOne({username});
 
     if (existingUser){
         // User already exists
-        return new Error(`User ${existingUser.username} already exists. Please choose a different username.`)
+        throw new Error(`User ${existingUser.username} already exists. Please choose a different username.`)
     }
     // hash the password
     const salt = bcrypt.genSaltSync(10);
 
     const hashedPass = bcrypt.hashSync(password, salt);
+    
     if (!hashedPass){
-        return new Error("Waste Note was unable to hash your password. ")
+        throw new Error("Waste Note was unable to hash your password. ")
     }
+
     // create the entry
     const user = new User({ username, password: hashedPass});
     //save to db
-    await user.save()
-
+    await user.save();
+    console.log("user saved");
     // TODO: Project the fields we actually need
     return user;
 }
 
 const readUser = (userID) => {
-    const user = User.find({_id: userID});
+    console.log(userID)
+    const user = User.findById(userID);
 
     if (!user){
-        return new Error(`User ${userID} could not be fond.`)
+        return new Error(`User ${userID} could not be fond.`);
     }
 
     // TODO: Project the fields we actually need

@@ -1,17 +1,30 @@
-const passport = require("passport");
-const LocalStrategy = require('passport-local');
-const bcrypt = require("bcryptjs");
-passport.use(new LocalStrategy(function verify(username, password, cb) {
-db.get('SELECT * FROM users WHERE username = ?', [ username ], function(err, row) {
-    if (err) { return cb(err); }
-    if (!row) { return cb(null, false, { message: 'Incorrect username or password.' }); }
-    
-    crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-    if (err) { return cb(err); }
-    if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
-        return cb(null, false, { message: 'Incorrect username or password.' });
+const { createUser: create, readUser: read } = require("../actions/user")
+
+const createUser = async (req, res, next) => {
+    // get the json fields `username` and `password`
+    // TODO: Add checks that these fields exist
+    const {username, password} = req.body;
+    // pass the fields into the actions/users fn
+    try{
+        const newUser = await create(username, password);
+        res.json({user: newUser});
+    }catch(e){
+        console.log(e)
     }
-    return cb(null, row);
-    });
-});
-}));
+    // respond
+ 
+}
+
+const readUser = async (req, res, next) => {
+    try{
+        const user = await read(req.params.userId);
+        res.json({user});
+    }catch(e){
+        console.log(e);
+    }
+}
+
+module.exports = {
+    createUser,
+    readUser
+}
