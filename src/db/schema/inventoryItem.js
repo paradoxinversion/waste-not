@@ -7,7 +7,7 @@ const inventoryItemSchema = new Schema({
     expirationDate: Date,
     useOrFreezeDate: Date,
     foodType: String,
-    user: Schema.Types.ObjectId, ref: "User" //mongoose schema something or other
+    // user: Schema.Types.ObjectId, ref: "User"
 });
 
 const InventoryItem = mongoose.model("InventoryItem", inventoryItemSchema); 

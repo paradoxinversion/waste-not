@@ -1,33 +1,63 @@
-const {createInventoryItem: create, readInventoryItem: readOne} = require("../actions/inventoryItems")
+const {
+    createInventoryItem: create, 
+    readInventoryItem: readOne, 
+    readInventoryItems: readAll, 
+    deleteInventoryItem: deleteOne,
+    updateInventoryItem: updateOne
+} = require("../actions/inventoryItems")
 
 const createInventoryItem = async (req, res, next) => {
-    const {
-        name,
-        purchaseDate,
-        expirationDate,
-        useOrFreezeDate,
-        foodType
-    } = req.body;
-    user = req.user.id
-    const iventoryItemParams = {
-        name,
-        purchaseDate,
-        expirationDate,
-        useOrFreezeDate,
-        foodType,
-        user
+    try {
+
+        const bodyFields = {
+            name,
+            purchaseDate,
+            expirationDate,
+            useOrFreezeDate,
+            foodType
+        } = req.body;
+        const inventoryItemParams = { ...bodyFields }
+
+        if (!purchaseDate) {
+            purchaseDate = new Date(Date.now());
+        }
+        console.log(inventoryItemParams)
+        const item = await create(inventoryItemParams);
+        return res.json({ success: item })
+    } catch (e) {
+        console.log(e)
+        return res.json({ error: "something went wrong" })
     }
-    const item = await create(user, iventoryItemParams);
-    return res.json({success: "Item added" })
 }
 
-const getInventoryItem = (req, res, next) => {
-    const {inventoryItemId} = req.body;
-    const inventoryItem = readOne(inventoryItemId) 
-    return res.json({inventoryItem})
+const getInventoryItem = async (req, res, next) => {
+    const { inventoryItemId } = req.body;
+    const inventoryItem = await readOne(inventoryItemId)
+    return res.json({ inventoryItem })
 }
+
+const getInventoryItems = async (req, res, next) => {
+    const inventoryItem = await readAll()
+    return res.json({ inventoryItem })
+}
+
+const deleteInventoryItem = async (req, res, next) => {
+    const { inventoryItemId } = req.body;
+    await deleteOne(inventoryItemId)
+    return res.json({ success: true })
+}
+
+const updateInventoryItem = async (req, res, next) => {
+    const { inventoryItemId } = req.body;
+    const updated = await updateOne(inventoryItemId, req.body.updateFields)
+    return res.json({ success: updated })
+}
+
 
 module.exports = {
     createInventoryItem,
-    GetFood: getInventoryItem
+    getInventoryItem,
+    getInventoryItems,
+    deleteInventoryItem,
+    updateInventoryItem
 }

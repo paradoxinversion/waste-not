@@ -22,3 +22,5 @@ To stop all running images, from the root directory, run
 ```sh
 docker compose down
 ```
+
+docker run --name mongodb -d -p 27017:27017 mongo
