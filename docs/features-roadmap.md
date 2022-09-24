@@ -5,6 +5,8 @@ User
 - [ ] A user can sign up
 - [ ] A user can log in
 - [ ] A user can log out
+- [x] A user can be retrieved from the DB
+  - [ ] The user's hashed password should not be sent
 
 Inventory
 

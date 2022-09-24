@@ -1,11 +1,12 @@
 const User = require("../db/schema/user")
 const bcrypt = require("bcryptjs")
+const typedefs = require("./typedefs");
 
 /**
  * Create a new user
  * @param {string} username 
  * @param {string} password 
- * @returns {Object} The resulting user's entry in the DB
+ * @returns {import("../../typedefs").User} The resulting user's entry in the DB
  */
 const createUser = async (username, password) => {
     // Check the db for an existing user
@@ -36,11 +37,11 @@ const createUser = async (username, password) => {
 /**
  * Fetch a single user from the database
  * @param {string} userID 
- * @returns {Object|null} - The request user if they can be found, null otherwise
+ * @returns {import("../../typedefs").User|null} - The request user if they can be found, null otherwise
  */
-const readUser = (userID) => {
+const readUser = async (userID) => {
     console.log(userID)
-    const user = User.findById(userID);
+    const user = await User.findById(userID).select("username");
 
     if (!user){
         return new Error(`User ${userID} could not be fond.`);
