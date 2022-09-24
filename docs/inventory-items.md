@@ -18,3 +18,7 @@ The listed "use or freeze" date on the item.
 ## foodType: String
 
 A string representing what the type of item is.
+
+## expiryAlertDispatched: Boolean
+
+A boolean representing whether or not an expiry alert has been dispatched. The checkExpiry job is responsible for setting this field after successfully dispatching an alert.
