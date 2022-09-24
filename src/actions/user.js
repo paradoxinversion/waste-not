@@ -33,6 +33,11 @@ const createUser = async (username, password) => {
     return user;
 }
 
+/**
+ * Fetch a single user from the database
+ * @param {string} userID 
+ * @returns {Object|null} - The request user if they can be found, null otherwise
+ */
 const readUser = (userID) => {
     console.log(userID)
     const user = User.findById(userID);
@@ -45,8 +50,22 @@ const readUser = (userID) => {
     return user;
 }
 
+/**
+ * Update a user's `username` or password.
+ * 
+ * Not yet implemented.
+ * @param {string} userID 
+ * @returns 
+ */
 const updateUser = (userID) => new Error("Not Implemented")
 
+/**
+ * Delete a user from the database.
+ * 
+ * Not yet implemented.
+ * @param {string} userID 
+ * @returns 
+ */
 const deleteUser = (userID) => new Error("Not Implemented")
 
 module.exports = {
