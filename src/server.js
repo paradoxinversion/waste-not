@@ -13,9 +13,10 @@ const LocalStrategy = require("passport-local");
 const User = require("./db/schema/user");
 const bcrypt = require("bcryptjs")
 const Bree = require('bree');
+var cors = require('cors')
 
 connectDatabase();
-
+app.use(cors())
 // Start jobs for alerting
 const bree = new Bree({jobs: 
   [

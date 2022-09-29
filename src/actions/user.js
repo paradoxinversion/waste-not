@@ -1,6 +1,5 @@
 const User = require("../db/schema/user")
 const bcrypt = require("bcryptjs")
-const typedefs = require("./typedefs");
 
 /**
  * Create a new user

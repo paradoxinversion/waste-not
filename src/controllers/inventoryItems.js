@@ -15,13 +15,13 @@ const createInventoryItem = async (req, res, next) => {
             expirationDate,
             useOrFreezeDate,
             foodType
-        } = req.body;
+        } = req.body.createFields;
+        
         const inventoryItemParams = { ...bodyFields }
 
         if (!purchaseDate) {
             purchaseDate = new Date(Date.now());
         }
-        console.log(inventoryItemParams)
         const item = await create(inventoryItemParams);
         return res.json({ success: item })
     } catch (e) {
@@ -37,8 +37,8 @@ const getInventoryItem = async (req, res, next) => {
 }
 
 const getInventoryItems = async (req, res, next) => {
-    const inventoryItem = await readAll()
-    return res.json({ inventoryItem })
+    const inventoryItem = await readAll();
+    return res.json({ inventoryItems: inventoryItem })
 }
 
 const deleteInventoryItem = async (req, res, next) => {
