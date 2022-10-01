@@ -2,23 +2,20 @@ const express = require("express");
 const { createUser, readUser } = require("./controllers/user")
 const router = express.Router();
 const passport = require("passport");
-const { createInventoryItem, getInventoryItems, deleteInventoryItem, updateInventoryItem } = require("./controllers/inventoryItems");
+const { 
+  createInventoryItem, 
+  getInventoryItems, 
+  deleteInventoryItem, 
+  updateInventoryItem 
+} = require("./controllers/inventoryItems");
 
 router
   .route("/inventory")
-  .get(getInventoryItems);
+  .get(getInventoryItems)
+  .post(createInventoryItem)
+  .put(updateInventoryItem)
+  .delete(deleteInventoryItem)
 
-router
-  .route("/inventory/add")
-  .post(createInventoryItem);
-
-router
-  .route("/inventory/delete")
-  .post(deleteInventoryItem);
-
-router
-  .route("/inventory/update")
-  .post(updateInventoryItem);
 
 router
   .route("/login")
