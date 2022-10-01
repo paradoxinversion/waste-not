@@ -16,12 +16,24 @@ const inventoryItemSchema = new Schema({
     useOrFreezeDate: {
         type: Date
     },
+    opened: {
+        type: Boolean,
+        default: false
+    },
+    used: {
+        type: Boolean,
+        default: false
+    },
     foodType: {
         type: String
     },
     expiryAlertDispatched: {
         type: Boolean,
         default: false
+    },
+    createdAt: {
+        type: Date,
+        default: new Date(Date.now())
     }
     // user: Schema.Types.ObjectId, ref: "User"
 });
