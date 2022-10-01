@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs")
  * Create a new user
  * @param {string} username 
  * @param {string} password 
- * @returns {import("../../typedefs").User} The resulting user's entry in the DB
+ * @returns {Object} The resulting user's entry in the DB
  */
 const createUser = async (username, password) => {
     // Check the db for an existing user
