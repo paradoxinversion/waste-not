@@ -1,7 +1,5 @@
 const InventoryItem = require("../db/schema/inventoryItem");
 
-
-
 /**
  * Create a new Inventory Item
  * @param {*} param0 
@@ -14,6 +12,8 @@ const createInventoryItem = async ({name, purchaseDate, expirationDate, userOrFr
     expirationDate,
     useOrFreezeDate,
     foodType,
+    opened,
+    used
   })
 
   await inventoryItem.save();
@@ -32,7 +32,6 @@ const readInventoryItem = async (inventoryItemID) => {
     if (!inventoryItem){
       throw new Error("Inventory Item does not exist")
     }
-    console.log("Read Inventory Item: ", inventoryItem);
   
     return inventoryItem;
   }catch(e){
