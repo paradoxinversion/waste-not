@@ -8,10 +8,12 @@ services:
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: production
-      APP_PORT: 3000
+      APP_PORT: 3030
       DB_PORT: 27017
       MONGODB_CONNSTRING: mongodb://mongodb:27017
+      SINGLE_USER_INSTANCE: True
+      EXPRESS_SESSION_SECRET: "keyboard cat"
     ports:
-      - 3000:3000
+      - 3030:3030
   mongodb:
     image: mongo:6.0
