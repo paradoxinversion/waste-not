@@ -14,6 +14,8 @@ const createInventoryItem = async (req, res, next) => {
             purchaseDate,
             expirationDate,
             useOrFreezeDate,
+            opened,
+            used,
             foodType
         } = req.body.createFields;
         
@@ -23,34 +25,50 @@ const createInventoryItem = async (req, res, next) => {
             purchaseDate = new Date(Date.now());
         }
         const item = await create(inventoryItemParams);
-        return res.json({ success: item })
+        res.json({ success: item })
     } catch (e) {
-        console.log(e)
-        return res.json({ error: "something went wrong" })
+        res.json({ error: e.message })
     }
 }
 
 const getInventoryItem = async (req, res, next) => {
-    const { inventoryItemId } = req.body;
-    const inventoryItem = await readOne(inventoryItemId)
-    return res.json({ inventoryItem })
+    try{
+        const { inventoryItemId } = req.body;
+        const inventoryItem = await readOne(inventoryItemId)
+        res.json({ inventoryItem })
+    }catch(e){
+        res.json({ error: e.message })
+    }
 }
 
 const getInventoryItems = async (req, res, next) => {
-    const inventoryItem = await readAll();
-    return res.json({ inventoryItems: inventoryItem })
+    try{
+
+        const inventoryItem = await readAll();
+        res.json({ inventoryItems: inventoryItem })
+    }catch(e){
+        res.json({ error: e.message })
+    }
 }
 
 const deleteInventoryItem = async (req, res, next) => {
-    const { inventoryItemId } = req.body;
-    await deleteOne(inventoryItemId)
-    return res.json({ success: true })
+    try{
+        const { inventoryItemId } = req.body;
+        await deleteOne(inventoryItemId)
+        res.json({ success: true })
+    }catch(e){
+        res.json({ error: e.message })
+    }
 }
 
 const updateInventoryItem = async (req, res, next) => {
-    const { inventoryItemId } = req.body;
-    const updated = await updateOne(inventoryItemId, req.body.updateFields)
-    return res.json({ success: updated })
+    try{
+        const { inventoryItemId } = req.body;
+        const updated = await updateOne(inventoryItemId, req.body.updateFields)
+        res.json({ success: updated })
+    }catch(e){
+        res.json({ error: e.message })
+    }
 }
 
 
