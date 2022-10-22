@@ -1,13 +1,16 @@
 const mongoose = require("mongoose")
-const connString = process.env.MONGODB_CONNSTRING;
+const configurator = require("../config");
+const config = configurator();
+
+const connString = config.database.mongodb_connection_string;
 
 const connect = () => {
-  console.log("Connecting to Waste Not MongoDB Instance")
+  console.log("Connecting to Waste Not MongoDB Instance");
   mongoose.connect(`${connString}/waste-not`).then(
-    ()=> {
+    () => {
       console.log("Connected to MongoDB Instance.")
     },
-    err => { console.log(err.message)}
+    err => { console.log(err.message) }
   );
 }
 
