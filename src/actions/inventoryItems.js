@@ -50,7 +50,6 @@ const readInventoryItems = async () => {
   try{
 
     const inventoryItems = await InventoryItem.find({});
-    console.log("Read Inventory Items: ", inventoryItems);
 
     return inventoryItems;
   }catch(e){
@@ -66,7 +65,6 @@ const readInventoryItems = async () => {
 const deleteInventoryItem = async (inventoryItemID) => {
   try{
     const result = await InventoryItem.findByIdAndDelete(inventoryItemID);
-    console.log("Delete Inventory Item: ", result)
     return true;
   }catch(e){
     throw e;
