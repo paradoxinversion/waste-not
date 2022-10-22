@@ -28,7 +28,6 @@ const createUser = async (username, password) => {
     const user = new User({ username, password: hashedPass});
     //save to db
     await user.save();
-    console.log("user saved");
     // TODO: Project the fields we actually need
     return user;
 }
@@ -39,7 +38,6 @@ const createUser = async (username, password) => {
  * @returns {import("../../typedefs").User|null} - The request user if they can be found, null otherwise
  */
 const readUser = async (userID) => {
-    console.log(userID)
     const user = await User.findById(userID).select("username");
 
     if (!user){
