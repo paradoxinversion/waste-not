@@ -11,7 +11,8 @@ const config = () =>
                 singleUserInstance: process.env.SINGLE_USER_INSTANCE
             },
             database: {
-                port: process.env.DB_PORT
+                port: process.env.DB_PORT,
+                mongodb_connection_string: process.env.LOCAL_INSTANCE ? process.env.MONGODB_CONNSTRING_LOCAL_INSTANCE : process.env.MONGODB_CONNSTRING
             }
         }
     })();
