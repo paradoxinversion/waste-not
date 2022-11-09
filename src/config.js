@@ -4,6 +4,8 @@
  */
 const config = () =>
     (() => {
+        console.log(process.env.LOCAL_INSTANCE)
+
         return {
             application: {
                 port: process.env.APP_PORT,
@@ -12,7 +14,7 @@ const config = () =>
             },
             database: {
                 port: process.env.DB_PORT,
-                mongodb_connection_string: process.env.LOCAL_INSTANCE ? process.env.MONGODB_CONNSTRING_LOCAL_INSTANCE : process.env.MONGODB_CONNSTRING
+                mongodb_connection_string: !!process.env.LOCAL_INSTANCE ? process.env.MONGODB_CONNSTRING_LOCAL_INSTANCE : process.env.MONGODB_CONNSTRING
             }
         }
     })();
