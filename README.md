@@ -9,6 +9,10 @@ __An application to reduce food waste and inventory your kitchen__
 
 ## Run the Application
 
+### Via NPM
+
+1. Run the MongoDB Instance (see below)
+
 To run the application with MongoDB, from the root directory, run
 
 ```sh
