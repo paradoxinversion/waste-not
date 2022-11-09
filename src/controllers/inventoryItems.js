@@ -3,7 +3,8 @@ const {
     readInventoryItem: readOne, 
     readInventoryItems: readAll, 
     deleteInventoryItem: deleteOne,
-    updateInventoryItem: updateOne
+    updateInventoryItem: updateOne,
+    bundleInventoryItems: bundle
 } = require("../actions/inventoryItems")
 
 const createInventoryItem = async (req, res, next) => {
@@ -71,11 +72,19 @@ const updateInventoryItem = async (req, res, next) => {
     }
 }
 
-
+const bundleInventoryItems = async (req, res, next) => {
+    try{
+        const dataBundle = await bundle();
+        res.json(dataBundle)
+    }catch(e){
+        res.json({ error: e.message })
+    }
+}
 module.exports = {
     createInventoryItem,
     getInventoryItem,
     getInventoryItems,
     deleteInventoryItem,
-    updateInventoryItem
+    updateInventoryItem,
+    bundleInventoryItems
 }
