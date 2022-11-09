@@ -6,7 +6,8 @@ const {
   createInventoryItem, 
   getInventoryItems, 
   deleteInventoryItem, 
-  updateInventoryItem 
+  updateInventoryItem, 
+  bundleInventoryItems
 } = require("./controllers/inventoryItems");
 
 router
@@ -16,6 +17,9 @@ router
   .put(updateInventoryItem)
   .delete(deleteInventoryItem)
 
+router
+  .route("/inventory/bundle")
+  .get(bundleInventoryItems)
 
 router
   .route("/login")
