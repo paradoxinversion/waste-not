@@ -49,8 +49,7 @@ const readInventoryItem = async (inventoryItemID) => {
 const readInventoryItems = async () => {
   try{
 
-    const inventoryItems = await InventoryItem.find({});
-
+    const inventoryItems = await InventoryItem.find({}).sort("purchaseDate");
     return inventoryItems;
   }catch(e){
     throw e;
@@ -80,7 +79,8 @@ const deleteInventoryItem = async (inventoryItemID) => {
  */
 const updateInventoryItem = async (inventoryItemID, newFields) => {
   try{
-    const updatedFields = {...newFields};
+
+    const updatedFields = {updatedAt: new Date(Date.now()), ...newFields};
     const result = await InventoryItem.findByIdAndUpdate(inventoryItemID, updatedFields, {
       new: true
     });
@@ -91,10 +91,20 @@ const updateInventoryItem = async (inventoryItemID, newFields) => {
   }
 }
 
+const bundleInventoryItems = async () => {
+  try{
+    const inventoryItems = await InventoryItem.find({}).select("name purchaseDate expirationDate opened expiryAlertDispatched createdAt").sort("purchaseDate");
+    return inventoryItems
+  }catch(e){
+    throw e;
+  }
+}
+
 module.exports = {
   createInventoryItem,
   readInventoryItem,
   readInventoryItems,
   deleteInventoryItem,
-  updateInventoryItem
+  updateInventoryItem,
+  bundleInventoryItems
 }
