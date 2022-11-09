@@ -34,6 +34,12 @@ const inventoryItemSchema = new Schema({
     createdAt: {
         type: Date,
         default: new Date(Date.now())
+    },
+    updatedAt: {
+        type: Date,
+    },
+    notes: {
+        type: String
     }
     // user: Schema.Types.ObjectId, ref: "User"
 });
