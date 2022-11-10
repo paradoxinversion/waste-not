@@ -31,18 +31,11 @@ const inventoryItemSchema = new Schema({
         type: Boolean,
         default: false
     },
-    createdAt: {
-        type: Date,
-        default: new Date(Date.now())
-    },
-    updatedAt: {
-        type: Date,
-    },
     notes: {
         type: String
     }
     // user: Schema.Types.ObjectId, ref: "User"
-});
+}, {timestamps: true});
 
 const InventoryItem = mongoose.model("InventoryItem", inventoryItemSchema); 
 
