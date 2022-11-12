@@ -4,8 +4,6 @@
  */
 const config = () =>
     (() => {
-        console.log(process.env.LOCAL_INSTANCE)
-
         return {
             application: {
                 port: process.env.APP_PORT,
