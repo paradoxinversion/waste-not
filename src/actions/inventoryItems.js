@@ -89,8 +89,8 @@ const deleteInventoryItem = async (inventoryItemID) => {
 const updateInventoryItem = async (inventoryItemID, newFields) => {
   try{
 
-    const updatedFields = {updatedAt: new Date(Date.now()), ...newFields};
-    const result = await InventoryItem.findByIAndUpdate(inventoryItemID, updatedFields, {
+    const updatedFields = {...newFields};
+    const result = await InventoryItem.findByIdAndUpdate(inventoryItemID, updatedFields, {
       new: true
     });
 
@@ -102,7 +102,7 @@ const updateInventoryItem = async (inventoryItemID, newFields) => {
 
 const bundleInventoryItems = async () => {
   try{
-    const inventoryItems = await InventoryItem.find({}).select("name purchaseDate expirationDate opened expiryAlertDispatched createdAt").sort("purchaseDate");
+    const inventoryItems = await InventoryItem.find({}).select("name purchaseDate expirationDate opened expiryAlertDispatched createdAt notes").sort("purchaseDate");
     return inventoryItems
   }catch(e){
     throw e;
