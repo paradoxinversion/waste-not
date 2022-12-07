@@ -5,7 +5,7 @@ const InventoryItem = require("../db/schema/inventoryItem");
  * @returns {import("../../typedefs").InventoryItem} - The new inventory Item
  */
 const createInventoryItem = async (inventoryItemData) => {
-  const {name, purchaseDate, expirationDate, useOrFreezeDate, foodType} = inventoryItemData;
+  const {name, purchaseDate, expirationDate, useOrFreezeDate, foodType, opened, used, notes} = inventoryItemData;
   const inventoryItem = new InventoryItem({
     name,
     purchaseDate,
