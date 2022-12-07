@@ -18,7 +18,8 @@ const createInventoryItem = async (req, res, next) => {
             useOrFreezeDate,
             opened,
             used,
-            foodType
+            foodType,
+            notes
         } = req.body.createFields;
         
         const inventoryItemParams = { ...bodyFields }
