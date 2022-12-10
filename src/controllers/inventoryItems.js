@@ -10,25 +10,28 @@ const {
 
 const createInventoryItem = async (req, res, next) => {
     try {
-
-        const bodyFields = {
-            name,
-            purchaseDate,
-            expirationDate,
-            useOrFreezeDate,
-            opened,
-            used,
-            foodType,
-            notes
-        } = req.body.createFields;
-        
-        const inventoryItemParams = { ...bodyFields }
-
-        if (!purchaseDate) {
-            purchaseDate = new Date(Date.now());
+        const items = [];
+        for (let i = 0; i < req.body.createFields.amount; i++) {
+            const bodyFields = {
+                name,
+                purchaseDate,
+                expirationDate,
+                useOrFreezeDate,
+                opened,
+                used,
+                foodType,
+                notes
+            } = req.body.createFields;
+            
+            const inventoryItemParams = { ...bodyFields }
+            
+            if (!purchaseDate) {
+                purchaseDate = new Date(Date.now());
+            }
+            items.push(await create(inventoryItemParams));
         }
-        const item = await create(inventoryItemParams);
-        res.json({ success: item })
+        
+        res.json({ success: items })
     } catch (e) {
         res.json({ error: e.message })
     }
